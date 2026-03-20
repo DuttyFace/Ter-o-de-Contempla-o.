@@ -35,7 +35,7 @@ const models = [
 
 const pricesByModel: Record<string, { qty: number; label: string; price: number; oldPrice: number; perUnit: number | null; badge: string | null; checkoutUrl: string }[]> = {
   "sao-bento": [
-    { qty: 1, label: "1 Unidade", price: 19, oldPrice: 29, perUnit: null, badge: null, checkoutUrl: "https://www.pagamentos-seguro.link/checkout/75c756c7-0c1b-47c6-b96d-9b77904bdde2" },
+    { qty: 1, label: "1 Unidade", price: 19, oldPrice: 29, perUnit: null, badge: null, checkoutUrl: "https://www.pagamentos-seguro.link/checkout/05cef27f-3f0c-4eb3-9063-1902d0e8ebe5" },
     { qty: 2, label: "2 Unidades", price: 29, oldPrice: 69, perUnit: 15, badge: "Mais vendido", checkoutUrl: "https://www.pagamentos-seguro.link/checkout/0839329c-46e4-4b5b-b544-308687b0c62d" },
     { qty: 3, label: "3 Unidades", price: 39, oldPrice: 89, perUnit: 13, badge: null, checkoutUrl: "https://www.pagamentos-seguro.link/checkout/6c561226-affa-41c1-ac58-3a1f58125c35" },
   ],
