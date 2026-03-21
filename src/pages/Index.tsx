@@ -223,10 +223,20 @@ const Index = () => {
               ))}
             </div>
 
-            <Button
-              className="w-full h-14 text-lg font-bold gap-2 rounded-lg bg-[#348d35] hover:bg-[#2d7a2e] text-white"
-              onClick={() => window.open(prices[selected].checkoutUrl, "_blank")}
-            >
+              <Button
+                className="w-full max-w-md h-14 text-lg font-bold gap-2 rounded-lg bg-[#348d35] hover:bg-[#2d7a2e] text-white"
+                onClick={() => {
+                  const baseUrl = prices[selected].checkoutUrl;
+                  const params = window.location.search;
+              
+                  const finalUrl = params
+                    ? baseUrl + params
+                    : baseUrl;
+              
+                  window.open(finalUrl, "_blank");
+                }}
+              >
+                             
               <ShoppingCart className="w-5 h-5" />
               Comprar Agora — R$ {prices[selected].price}
             </Button>
@@ -352,9 +362,19 @@ const Index = () => {
               ))}
             </div>
             <Button
-              className="w-full max-w-md h-14 text-lg font-bold gap-2 rounded-lg bg-[#348d35] hover:bg-[#2d7a2e] text-white"
-              onClick={() => window.open(prices[selected].checkoutUrl, "_blank")}
-            >
+                className="w-full max-w-md h-14 text-lg font-bold gap-2 rounded-lg bg-[#348d35] hover:bg-[#2d7a2e] text-white"
+                onClick={() => {
+                  const baseUrl = prices[selected].checkoutUrl;
+                  const params = window.location.search;
+              
+                  const finalUrl = params
+                    ? baseUrl + params
+                    : baseUrl;
+              
+                  window.open(finalUrl, "_blank");
+                }}
+              >
+              
               <ShoppingCart className="w-5 h-5" />
               Comprar Agora — R$ {prices[selected].price}
             </Button>
