@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Star, ShieldCheck, Truck, Lock, ShoppingCart, Crown, Shield, Gem } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -84,6 +84,30 @@ const Index = () => {
   const [selected, setSelected] = useState(0);
   const [selectedModel, setSelectedModel] = useState(0);
   const [selectedPhoto, setSelectedPhoto] = useState(0);
+
+  useEffect(() => {
+  // Pixel UTMify
+  window.pixelId = "69b936239ef0e49615985dbd";
+
+  const pixelScript = document.createElement("script");
+  pixelScript.async = true;
+  pixelScript.defer = true;
+  pixelScript.src = "https://cdn.utmify.com.br/scripts/pixel/pixel.js";
+  document.head.appendChild(pixelScript);
+
+  // Captura UTM
+  const utmScript = document.createElement("script");
+  utmScript.async = true;
+  utmScript.defer = true;
+  utmScript.src = "https://cdn.utmify.com.br/scripts/utms/latest.js";
+  utmScript.setAttribute("data-utmify-prevent-subids", "true");
+  document.head.appendChild(utmScript);
+
+  return () => {
+    document.head.removeChild(pixelScript);
+    document.head.removeChild(utmScript);
+  };
+}, []);
 
   const currentModel = models[selectedModel];
   const prices = pricesByModel[currentModel.id];
