@@ -87,7 +87,7 @@ const Index = () => {
 
   useEffect(() => {
   // Pixel UTMify
-  window.pixelId = "69b936239ef0e49615985dbd";
+  window.pixelId = "69c3974e7087179fc61c5537";
 
   const pixelScript = document.createElement("script");
   pixelScript.async = true;
