@@ -104,7 +104,7 @@ const Index = () => {
   useEffect(() => {
     // Pixel UTMify
     const trackingWindow = window as Window & { pixelId?: string };
-    trackingWindow.pixelId = "69996f756285f3591bdfb2a8";
+    trackingWindow.pixelId = "69c3974e7087179fc61c5537";
 
     const pixelScript = document.createElement("script");
     pixelScript.async = true;
