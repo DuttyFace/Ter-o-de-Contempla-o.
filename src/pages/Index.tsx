@@ -56,9 +56,9 @@ const pricesByModel: Record<string, { qty: number; label: string; price: number;
     { qty: 3, label: "3 Unidades", price: 39, oldPrice: 89, perUnit: 13, badge: null, checkoutUrl: "https://www.pagamentos-seguro.link/checkout/665e5396-416c-4eda-8f71-4a22ced06ef0" },
   ],
   "casal": [
-    { qty: 1, label: "1 Unidade", price: 19, oldPrice: 29, perUnit: null, badge: null, checkoutUrl: "https://pay.rosamisterio.site/checkout/51570b1a-f693-4774-8b4b-4a161f71bd1b" },
-    { qty: 2, label: "2 Unidades", price: 29, oldPrice: 69, perUnit: 15, badge: "Mais vendido", checkoutUrl: "https://pay.rosamisterio.site/checkout/65bcbc85-0ea6-4bb4-a045-b3c76b62982d" },
-    { qty: 3, label: "3 Unidades", price: 39, oldPrice: 89, perUnit: 13, badge: null, checkoutUrl: "https://pay.rosamisterio.site/checkout/c7f71b3a-d027-48ca-ba28-5320549d3ceb" },
+    { qty: 1, label: "1 Unidade", price: 19, oldPrice: 29, perUnit: null, badge: null, checkoutUrl: "https://www.pagamentos-seguro.link/checkout/4db8dd5c-b3ca-4332-a70c-16c46f6efd0b" },
+    { qty: 2, label: "2 Unidades", price: 29, oldPrice: 69, perUnit: 15, badge: "Mais vendido", checkoutUrl: "https://www.pagamentos-seguro.link/checkout/76a11911-fffa-47d6-90e0-b08491e32de0" },
+    { qty: 3, label: "3 Unidades", price: 39, oldPrice: 89, perUnit: 13, badge: null, checkoutUrl: "https://www.pagamentos-seguro.link/checkout/a4be455c-a5d2-4703-97fd-8de1ebd692e4" },
   ],
 };
 
