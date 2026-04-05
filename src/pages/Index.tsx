@@ -31,17 +31,6 @@ const models = [
       "/images/aparecida-5.webp",
     ],
   },
-  {
-    id: "casal",
-    label: "Terço do Casal",
-    images: [
-      "/images/terco-casal.webp",
-      "/images/casal-2.webp",
-      "/images/casal-3.webp",
-      "/images/casal-4.webp",
-      "/images/casal-5.webp",
-    ],
-  },
 ];
 
 const pricesByModel: Record<string, { qty: number; label: string; price: number; oldPrice: number; perUnit: number | null; badge: string | null; checkoutUrl: string }[]> = {
@@ -54,11 +43,6 @@ const pricesByModel: Record<string, { qty: number; label: string; price: number;
     { qty: 1, label: "1 Unidade", price: 19, oldPrice: 29, perUnit: null, badge: null, checkoutUrl: "https://www.pagamentos-seguro.link/checkout/75c756c7-0c1b-47c6-b96d-9b77904bdde2" },
     { qty: 2, label: "2 Unidades", price: 29, oldPrice: 69, perUnit: 15, badge: "Mais vendido", checkoutUrl: "https://www.pagamentos-seguro.link/checkout/cf321613-e6f8-441e-a414-b549a483656d" },
     { qty: 3, label: "3 Unidades", price: 39, oldPrice: 89, perUnit: 13, badge: null, checkoutUrl: "https://www.pagamentos-seguro.link/checkout/665e5396-416c-4eda-8f71-4a22ced06ef0" },
-  ],
-  "casal": [
-    { qty: 1, label: "1 Unidade", price: 19, oldPrice: 29, perUnit: null, badge: null, checkoutUrl: "https://www.pagamentos-seguro.link/checkout/4db8dd5c-b3ca-4332-a70c-16c46f6efd0b" },
-    { qty: 2, label: "2 Unidades", price: 29, oldPrice: 69, perUnit: 15, badge: "Mais vendido", checkoutUrl: "https://www.pagamentos-seguro.link/checkout/76a11911-fffa-47d6-90e0-b08491e32de0" },
-    { qty: 3, label: "3 Unidades", price: 39, oldPrice: 89, perUnit: 13, badge: null, checkoutUrl: "https://www.pagamentos-seguro.link/checkout/a4be455c-a5d2-4703-97fd-8de1ebd692e4" },
   ],
 };
 
@@ -102,29 +86,28 @@ const Index = () => {
   const [selectedPhoto, setSelectedPhoto] = useState(0);
 
   useEffect(() => {
-    // Pixel UTMify
-    const trackingWindow = window as Window & { pixelId?: string };
-    trackingWindow.pixelId = "69c3974e7087179fc61c5537";
+  // Pixel UTMify
+  window.pixelId = "69c3974e7087179fc61c5537";
 
-    const pixelScript = document.createElement("script");
-    pixelScript.async = true;
-    pixelScript.defer = true;
-    pixelScript.src = "https://cdn.utmify.com.br/scripts/pixel/pixel.js";
-    document.head.appendChild(pixelScript);
+  const pixelScript = document.createElement("script");
+  pixelScript.async = true;
+  pixelScript.defer = true;
+  pixelScript.src = "https://cdn.utmify.com.br/scripts/pixel/pixel.js";
+  document.head.appendChild(pixelScript);
 
-    // Captura UTM
-    const utmScript = document.createElement("script");
-    utmScript.async = true;
-    utmScript.defer = true;
-    utmScript.src = "https://cdn.utmify.com.br/scripts/utms/latest.js";
-    utmScript.setAttribute("data-utmify-prevent-subids", "true");
-    document.head.appendChild(utmScript);
+  // Captura UTM
+  const utmScript = document.createElement("script");
+  utmScript.async = true;
+  utmScript.defer = true;
+  utmScript.src = "https://cdn.utmify.com.br/scripts/utms/latest.js";
+  utmScript.setAttribute("data-utmify-prevent-subids", "true");
+  document.head.appendChild(utmScript);
 
-    return () => {
-      document.head.removeChild(pixelScript);
-      document.head.removeChild(utmScript);
-    };
-  }, []);
+  return () => {
+    document.head.removeChild(pixelScript);
+    document.head.removeChild(utmScript);
+  };
+}, []);
 
   const currentModel = models[selectedModel];
   const prices = pricesByModel[currentModel.id];
@@ -172,11 +155,11 @@ const Index = () => {
           </div>
 
           {/* Product Info */}
-          <div className="space-y-4 overflow-hidden">
+          <div className="space-y-4">
             <span className="inline-block bg-primary/15 text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
               ✦ Edição {currentModel.label}
             </span>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight">
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
               Terço Católico de Contemplação dos Mistérios
             </h1>
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -197,21 +180,21 @@ const Index = () => {
             {/* Model Selector - Shopee style */}
             <div className="space-y-2">
               <p className="text-sm font-bold text-foreground">Modelo:</p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex gap-3">
                 {models.map((model, i) => (
                   <button
                     key={model.id}
                     onClick={() => handleModelChange(i)}
-                    className={`flex items-center gap-1.5 px-3 py-2 rounded-lg border-2 transition-all text-xs sm:text-sm ${
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg border-2 transition-all text-sm ${
                       selectedModel === i
                         ? "border-primary bg-primary/5 text-foreground font-bold"
                         : "border-border hover:border-primary/40 text-muted-foreground"
                     }`}
                   >
-                    <div className="w-7 h-7 rounded-full overflow-hidden border border-border shrink-0">
+                    <div className="w-8 h-8 rounded-full overflow-hidden border border-border shrink-0">
                       <img src={model.images[0]} alt={model.label} className="w-full h-full object-cover" />
                     </div>
-                    <span className="whitespace-nowrap">{model.label}</span>
+                    {model.label}
                   </button>
                 ))}
               </div>
@@ -224,17 +207,17 @@ const Index = () => {
                 <button
                   key={i}
                   onClick={() => setSelected(i)}
-                  className={`w-full flex items-center justify-between px-3 sm:px-4 py-3 rounded-lg border-2 transition-all ${
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-lg border-2 transition-all ${
                     selected === i ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"
                   }`}
                 >
-                  <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 shrink">
-                    <span className="font-medium text-foreground text-sm sm:text-base whitespace-nowrap">{p.label}</span>
-                    {p.badge && <span className="bg-primary text-primary-foreground text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full whitespace-nowrap">{p.badge}</span>}
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-foreground">{p.label}</span>
+                    {p.badge && <span className="bg-primary text-primary-foreground text-[10px] font-bold px-2 py-0.5 rounded-full">{p.badge}</span>}
                   </div>
-                  <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                    <span className="text-xs sm:text-sm text-muted-foreground line-through">R$ {p.oldPrice}</span>
-                    <span className="font-bold text-primary text-base sm:text-lg">R$ {p.price}</span>
+                  <div className="text-right flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground line-through">R$ {p.oldPrice}</span>
+                    <span className="font-bold text-primary text-lg">R$ {p.price}</span>
                   </div>
                 </button>
               ))}
@@ -358,30 +341,6 @@ const Index = () => {
           <CardContent className="py-10 px-8 text-center space-y-6">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground">Garanta o Seu Terço Agora</h2>
             <p className="text-sm text-muted-foreground">Escolha a melhor oferta e comece sua jornada de contemplação.</p>
-            
-            {/* Model Selector */}
-            <div className="max-w-md mx-auto space-y-2">
-              <p className="text-sm font-bold text-foreground text-left">Modelo:</p>
-              <div className="flex flex-col gap-2">
-                {models.map((model, i) => (
-                  <button
-                    key={model.id}
-                    onClick={() => handleModelChange(i)}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all text-xs sm:text-sm ${
-                      selectedModel === i
-                        ? "border-primary bg-primary/5 text-foreground font-bold"
-                        : "border-border hover:border-primary/40 text-muted-foreground"
-                    }`}
-                  >
-                    <div className="w-7 h-7 rounded-full overflow-hidden border border-border shrink-0">
-                      <img src={model.images[0]} alt={model.label} className="w-full h-full object-cover" />
-                    </div>
-                    <span className="whitespace-nowrap">{model.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
             <div className="max-w-md mx-auto space-y-2">
               {prices.map((p, i) => (
                 <button
@@ -424,7 +383,7 @@ const Index = () => {
       </section>
 
       <footer className="py-6 text-center text-xs text-muted-foreground">
-        ©️ 2026 Loja Rosa Mistério. Todos os direitos reservados.
+        © 2026 Loja Rosa Mistério. Todos os direitos reservados.
       </footer>
     </div>
   );
