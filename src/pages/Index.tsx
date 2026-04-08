@@ -8,6 +8,12 @@ import MysteriesSection from "@/components/MysteriesSection";
 import CustomerPhotosCarousel from "@/components/CustomerPhotosCarousel";
 import SocialProofReviews from "@/components/SocialProofReviews";
 
+declare global {
+  interface Window {
+    pixelId: string;
+  }
+}
+
 const models = [
   {
     id: "sao-bento",
@@ -86,28 +92,26 @@ const Index = () => {
   const [selectedPhoto, setSelectedPhoto] = useState(0);
 
   useEffect(() => {
-  // Pixel UTMify
-  window.pixelId = "69d2edc247ba4296c79d4b87";
+    window.pixelId = "69d2edc247ba4296c79d4b87";
 
-  const pixelScript = document.createElement("script");
-  pixelScript.async = true;
-  pixelScript.defer = true;
-  pixelScript.src = "https://cdn.utmify.com.br/scripts/pixel/pixel.js";
-  document.head.appendChild(pixelScript);
+    const pixelScript = document.createElement("script");
+    pixelScript.async = true;
+    pixelScript.defer = true;
+    pixelScript.src = "https://cdn.utmify.com.br/scripts/pixel/pixel.js";
+    document.head.appendChild(pixelScript);
 
-  // Captura UTM
-  const utmScript = document.createElement("script");
-  utmScript.async = true;
-  utmScript.defer = true;
-  utmScript.src = "https://cdn.utmify.com.br/scripts/utms/latest.js";
-  utmScript.setAttribute("data-utmify-prevent-subids", "true");
-  document.head.appendChild(utmScript);
+    const utmScript = document.createElement("script");
+    utmScript.async = true;
+    utmScript.defer = true;
+    utmScript.src = "https://cdn.utmify.com.br/scripts/utms/latest.js";
+    utmScript.setAttribute("data-utmify-prevent-subids", "true");
+    document.head.appendChild(utmScript);
 
-  return () => {
-    document.head.removeChild(pixelScript);
-    document.head.removeChild(utmScript);
-  };
-}, []);
+    return () => {
+      document.head.removeChild(pixelScript);
+      document.head.removeChild(utmScript);
+    };
+  }, []);
 
   const currentModel = models[selectedModel];
   const prices = pricesByModel[currentModel.id];
@@ -118,10 +122,8 @@ const Index = () => {
     setSelected(0);
   };
 
-
   return (
     <div className="min-h-screen bg-background">
-      {/* Header - Sticky */}
       <header className="w-full py-3 bg-card text-foreground sticky top-0 z-50 shadow-md border-b border-border">
         <div className="max-w-5xl mx-auto px-4 flex items-center justify-center">
           <span className="text-lg md:text-xl font-bold text-primary flex items-center gap-2">
@@ -131,10 +133,8 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
       <section className="max-w-5xl mx-auto px-4 py-8 md:py-12">
         <div className="grid md:grid-cols-2 gap-8 items-start">
-          {/* Product Image */}
           <div>
             <div className="rounded-lg overflow-hidden border border-border">
               <img src={currentModel.images[selectedPhoto]} alt="Terço Católico de Contemplação dos Mistérios" className="w-full h-auto object-cover" />
@@ -154,7 +154,6 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Product Info */}
           <div className="space-y-4">
             <span className="inline-block bg-primary/15 text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
               ✦ Edição {currentModel.label}
@@ -177,7 +176,6 @@ const Index = () => {
               O mapa para sua oração e a armadura para sua alma. Unindo a força rústica da madeira com a nobreza eterna do bronze, este terço é uma ferramenta pedagógica de fé com placas indicativas dos Mistérios para meditação profunda.
             </p>
 
-            {/* Model Selector - Shopee style */}
             <div className="space-y-2">
               <p className="text-sm font-bold text-foreground">Modelo:</p>
               <div className="flex gap-3">
@@ -200,7 +198,6 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Pricing */}
             <div className="space-y-2">
               <p className="text-sm font-bold text-foreground">Escolha sua oferta:</p>
               {prices.map((p, i) => (
@@ -223,20 +220,21 @@ const Index = () => {
               ))}
             </div>
 
-              <Button
-                className="w-full max-w-md h-14 text-lg font-bold gap-2 rounded-lg bg-[#348d35] hover:bg-[#2d7a2e] text-white"
-                onClick={() => {
-                  const baseUrl = prices[selected].checkoutUrl;
-                  const params = window.location.search;
-              
-                  const finalUrl = params
-                    ? baseUrl + params
-                    : baseUrl;
-              
-                  window.open(finalUrl, "_blank");
-                }}
-              >
-                             
+            <Button
+              className="w-full max-w-md h-14 text-lg font-bold gap-2 rounded-lg bg-[#348d35] hover:bg-[#2d7a2e] text-white"
+              onClick={() => {
+                const model = currentModel.id;
+                const qty = prices[selected].qty;
+                localStorage.setItem("selectedModel", model);
+                localStorage.setItem("selectedQty", String(qty));
+                const baseUrl = prices[selected].checkoutUrl;
+                const existingParams = new URLSearchParams(window.location.search);
+                existingParams.set("modelo", model);
+                existingParams.set("qty", String(qty));
+                const finalUrl = baseUrl + "?" + existingParams.toString();
+                window.open(finalUrl, "_blank");
+              }}
+            >
               <ShoppingCart className="w-5 h-5" />
               Comprar Agora — R$ {prices[selected].price}
             </Button>
@@ -249,13 +247,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Social Proof Reviews */}
       <SocialProofReviews />
-
-      {/* Product Details Section */}
       <ProductDetails />
 
-      {/* Diferencial */}
       <section className="max-w-3xl mx-auto px-4 py-12 text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">O Grande Diferencial: O Caminho da Contemplação</h2>
         <div className="bg-card border border-border rounded-lg p-6">
@@ -265,7 +259,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features */}
       <section className="max-w-5xl mx-auto px-4 py-12">
         <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8">Por que escolher a versão {currentModel.label}?</h2>
         <div className="grid md:grid-cols-3 gap-6">
@@ -283,13 +276,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Mysteries of the Rosary */}
       <MysteriesSection />
-
-      {/* Customer Photos Carousel */}
       <CustomerPhotosCarousel />
 
-      {/* Testimonials */}
       <section className="max-w-5xl mx-auto px-4 py-12">
         <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8">O Que Nossos Clientes Dizem</h2>
         <div className="grid md:grid-cols-2 gap-6">
@@ -307,7 +296,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* FAQ */}
       <section className="max-w-3xl mx-auto px-4 py-12">
         <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8">Perguntas Frequentes</h2>
         <Accordion type="single" collapsible className="space-y-2">
@@ -320,7 +308,6 @@ const Index = () => {
         </Accordion>
       </section>
 
-      {/* Garantia */}
       <section className="max-w-3xl mx-auto px-4 py-12">
         <Card className="border-border bg-muted/50">
           <CardContent className="py-10 px-8 text-center space-y-4">
@@ -335,7 +322,6 @@ const Index = () => {
         </Card>
       </section>
 
-      {/* CTA Final */}
       <section className="max-w-3xl mx-auto px-4 py-12">
         <Card className="border-2 border-primary/30 bg-card">
           <CardContent className="py-10 px-8 text-center space-y-6">
@@ -362,19 +348,20 @@ const Index = () => {
               ))}
             </div>
             <Button
-                className="w-full max-w-md h-14 text-lg font-bold gap-2 rounded-lg bg-[#348d35] hover:bg-[#2d7a2e] text-white"
-                onClick={() => {
-                  const baseUrl = prices[selected].checkoutUrl;
-                  const params = window.location.search;
-              
-                  const finalUrl = params
-                    ? baseUrl + params
-                    : baseUrl;
-              
-                  window.open(finalUrl, "_blank");
-                }}
-              >
-              
+              className="w-full max-w-md h-14 text-lg font-bold gap-2 rounded-lg bg-[#348d35] hover:bg-[#2d7a2e] text-white"
+              onClick={() => {
+                const model = currentModel.id;
+                const qty = prices[selected].qty;
+                localStorage.setItem("selectedModel", model);
+                localStorage.setItem("selectedQty", String(qty));
+                const baseUrl = prices[selected].checkoutUrl;
+                const existingParams = new URLSearchParams(window.location.search);
+                existingParams.set("modelo", model);
+                existingParams.set("qty", String(qty));
+                const finalUrl = baseUrl + "?" + existingParams.toString();
+                window.open(finalUrl, "_blank");
+              }}
+            >
               <ShoppingCart className="w-5 h-5" />
               Comprar Agora — R$ {prices[selected].price}
             </Button>
@@ -383,7 +370,7 @@ const Index = () => {
       </section>
 
       <footer className="py-6 text-center text-xs text-muted-foreground">
-        © 2026 Loja Rosa Mistério. Todos os direitos reservados.
+        ©️ 2026 Loja Rosa Mistério. Todos os direitos reservados.
       </footer>
     </div>
   );
